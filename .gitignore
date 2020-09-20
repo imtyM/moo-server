@@ -1,6 +1,10 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,linux,windows,opencv,code,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,linux,windows,opencv,code,git
+#
+
+### Project specific ###
+/cow_data
 
 ### Code ###
 .vscode/*
