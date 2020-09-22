@@ -1,37 +1,19 @@
 import bluetooth
 
-print('starting process')
+server_sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 
-server_sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-server_sock.bind(("", bluetooth.PORT_ANY))
+server_sock.bind(("",bluetooth.PORT_ANY))
 server_sock.listen(1)
 
-port = server_sock.getsockname()[1]
+uuid = "1e0ca4ea-299d-4335-93eb-27fcfe7fa848"
+bluetooth.advertise_service( server_sock, "FooBar Service", uuid  )
 
-uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
+print("Waiting for connections here...")
+client_sock,address = server_sock.accept()
+print("Accepted connection from ",address)
 
-bluetooth.advertise_service(server_sock, "SampleServer", service_id=uuid,
-                            service_classes=[uuid, bluetooth.SERIAL_PORT_CLASS],
-                            profiles=[bluetooth.SERIAL_PORT_PROFILE],
-                            #description='nice things'
-                            # protocols=[bluetooth.OBEX_UUID, bluetooth.SDP_UUID]
-                            )
-
-print("Waiting for connection on RFCOMM channel", port)
-client_sock, client_info = server_sock.accept()
-print("Accepted connection from", client_info)
-
-try:
-    while True:
-        data = client_sock.recv(1024)
-        if not data:
-            break
-        print("Received", data)
-except OSError:
-    pass
-
-print("Disconnected.")
+data = client_sock.recv(1024)
+print("received: ",data)
 
 client_sock.close()
 server_sock.close()
-print("All done.")

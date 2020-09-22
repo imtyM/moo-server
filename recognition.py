@@ -4,8 +4,10 @@ __input = './cow_data/WIN_20200907_12_29_56_Pro.mp4'
 cap = cv.VideoCapture(__input)
 
 frame_counter = 0
+
 if cap.isOpened() == False:
     print('Could not open file')
+
 while True:
     ret, frame = cap.read()
     if not ret:
@@ -14,5 +16,10 @@ while True:
     else:
         frame_counter = frame_counter + 1
         print('Showing frame ', frame_counter)
-        cv.imshow('', frame)
+        cv.imshow('original', frame)
+        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        print(frame)
+        cv.imshow('', gray)
         cv.waitKey(0)
+
+
