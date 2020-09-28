@@ -1,7 +1,7 @@
-import cv2 as cv
+import cv2
 
-__input = './cow_data/WIN_20200907_12_29_56_Pro.mp4'
-cap = cv.VideoCapture(__input)
+__input = './1.mp4'
+cap = cv2.VideoCapture(__input)
 
 frame_counter = 0
 
@@ -16,10 +16,10 @@ while True:
     else:
         frame_counter = frame_counter + 1
         print('Showing frame ', frame_counter)
-        cv.imshow('original', frame)
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        print(frame)
-        cv.imshow('', gray)
-        cv.waitKey(0)
+        cv2.imshow('original', frame)
+        ch = cv2.waitKey(1)
+        if ch == 27 or ch == ord('q') or ch == ord('Q'):
+            break
+
 
 
