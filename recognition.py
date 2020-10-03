@@ -3,36 +3,28 @@ import numpy as np
 import os
 
 class CompareImage(object):
+    # @staticmethod
+    # def get_image_difference(image_1, image_2):
+        # first_image_hist = cv2.calcHist([image_1], [0], None, [256], [0, 256])
+        # second_image_hist = cv2.calcHist([image_2], [0], None, [256], [0, 256])
 
-    def __init__(self, image_1, image_2):
-        self.minimum_commutative_image_diff = 1
-        self.image_1 = image_1
-        self.image_2 = image_2
+        # img_hist_diff = cv2.compareHist(first_image_hist, second_image_hist, cv2.HISTCMP_BHATTACHARYYA)
+        # img_template_probability_match = cv2.matchTemplate(first_image_hist, second_image_hist, cv2.TM_CCOEFF_NORMED)[0][0]
+        # img_template_diff = 1 - img_template_probability_match
 
-    def compare_image(self):
-        # image_1 = cv2.imread(self.image_1_path, 0)
-        # image_2 = cv2.imread(self.image_2_path, 0)
-        commutative_image_diff = self.get_image_difference(self.image_1, self.image_2)
-
-        if commutative_image_diff < self.minimum_commutative_image_diff:
-            return commutative_image_diff
-        return 10000 # random failure value
+        # # taking only 10% of histogram diff, since it's less accurate than template method
+        # commutative_image_diff = (img_hist_diff / 10) + img_template_diff
+        # return commutative_image_diff
 
     @staticmethod
     def get_image_difference(image_1, image_2):
-        first_image_hist = cv2.calcHist([image_1], [0], None, [256], [0, 256])
-        second_image_hist = cv2.calcHist([image_2], [0], None, [256], [0, 256])
-
-        img_hist_diff = cv2.compareHist(first_image_hist, second_image_hist, cv2.HISTCMP_BHATTACHARYYA)
-        img_template_probability_match = cv2.matchTemplate(first_image_hist, second_image_hist, cv2.TM_CCOEFF_NORMED)[0][0]
+        img_template_probability_match = cv2.matchTemplate(image_1, image_2, cv2.TM_CCOEFF_NORMED)[0][0]
         img_template_diff = 1 - img_template_probability_match
 
-        # taking only 10% of histogram diff, since it's less accurate than template method
-        commutative_image_diff = (img_hist_diff / 10) + img_template_diff
-        return commutative_image_diff
+        return img_template_diff
 
 videoFolder = './cow_data/'
-fileName = '1.mp4'
+fileName = '4.mp4'
 __input = videoFolder + fileName
 cap = cv2.VideoCapture(__input)
 
@@ -45,6 +37,10 @@ frame_counter = 0
 # @input - RGB frame
 # @return - cropped RGB image only with ROI.
 def getROI(frame):
+    # lowX = 123
+    # highX = 919
+    # lowY = 185
+    # highY = 570
     lowX = 34
     highX = 1250
     lowY = 91
@@ -86,19 +82,25 @@ def showFrameWithQuit(frame, frameName = 'frame'):
         return False
 
 def matchFrame(frame):
-    processedFrame = grayScaleFrame(getROI(frame))
+    processedFrame = grayScaleFrame(frame)
     cv2.imshow('processedFrame', processedFrame)
     templates = loadImagesFromFolder('./pictures')
     processedTemplates = [grayScaleFrame(template) for template in templates]
 
     # templateMatcheCoeffs = [cv2.matchTemplate(processedFrame, template, cv2.TM_CCOEFF_NORMED) for template in processedTemplates]
 
-    for i, template in enumerate(processedTemplates):
-        compareObject = CompareImage(processedFrame, template)
-        val = compareObject.compare_image()
-        if val < 0.65:
-            print('value: ', val, ' Matched to: ', i)
+    bestVal = 1000
+    bestTemplate = None
+    for template in processedTemplates:
+        val = CompareImage.get_image_difference(processedFrame, template)
+        if val < bestVal:
+            bestVal = val
+            bestTemplate = template
+    print(bestVal)
 
+    if bestVal < 0.35 and bestTemplate is not None:
+        print('Best match?')
+        cv2.imshow('Best match', bestTemplate)
 
 def grayScaleFrame(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -118,7 +120,7 @@ while True:
         break
     else:
         frame_counter = frame_counter + 1
-        if (frame_counter < 240):
+        if (frame_counter < 0):
             continue
         print('Showing frame ', frame_counter)
         # cv2.imshow('original', frame)
