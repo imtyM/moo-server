@@ -5,7 +5,7 @@ from contour_matching import contourMatching
 from frame_minipulations import BgrToHsv
 
 videoFolder = './cow_data/'
-fileName = '1.mp4'
+fileName = '6.mp4'
 __input = videoFolder + fileName
 cap = cv2.VideoCapture(__input)
 
@@ -22,11 +22,13 @@ while True:
         break
     else:
         frame_counter = frame_counter + 1
-        if (frame_counter < 200):
+        if (frame_counter < 240):
             continue
         print('Showing frame ', frame_counter)
         # cv2.imshow('original', frame)
         template = cv2.imread('./pictures/Cow1.jpg')
+        # cv2.imshow('template', template)
+
         contourMatching(frame, template)
         # hsvFrame = BgrToHsv(frame)
         # templateMatching(frame)

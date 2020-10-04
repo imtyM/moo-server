@@ -1,24 +1,30 @@
 import cv2
 import numpy as np
+from numpy.linalg import norm
 import random as rng
 
 from frame_minipulations import BgrToHsv
 
 AREA_THRESHOLD = 15
-SHAPE_SIMILARITY_THRESHOLD = 0.2
+SHAPE_SIMILARITY_THRESHOLD = 0.4
 
 def contourMatching(frame, template):
+    frame_brightness = np.average(norm(frame, axis=2)) / np.sqrt(3)
+    template_brightness = np.average(norm(template, axis=2)) / np.sqrt(3)
+    # print('Frame brightness ', frame_brightness)
+    # print('Template brightness ', template_brightness)
+
     frame_best_contours = determine_best_contours_for_frame(frame, 'frame')
-    template_best_contours = determine_best_contours_for_frame(template, 'template', True)
+    template_best_contours = determine_best_contours_for_frame(template, 'template')
     match_best_contours(frame_best_contours, template_best_contours)
 
 def determine_best_contours_for_frame(frame, name, template=False):
-    frame_HSV = BgrToHsv(frame, 0, 0, 140, 255, 255, 255)
+    frame_HSV = BgrToHsv(frame, 0, 0, 150, 255, 255, 255)
     # cv2.imshow(name, frame_HSV)
-    # morphed_frame = apply_morphological_transform(frame_HSV)
-    frame_contours, _ = cv2.findContours(frame_HSV, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    morphed_frame = apply_morphological_transform(frame_HSV)
+    frame_contours, _ = cv2.findContours(morphed_frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     filtered_contours = filter_small_contours(frame_contours, template)
-    frame_with_contours = draw_frame_with_contours(frame, filtered_contours)
+    frame_with_contours = draw_frame_with_contours(morphed_frame, filtered_contours)
 
     title = f'{name} contours'
     cv2.imshow(title, frame_with_contours)
@@ -26,10 +32,9 @@ def determine_best_contours_for_frame(frame, name, template=False):
     return filtered_contours
 
 def apply_morphological_transform(frame):
-    kernel = np.ones((10, 10),np.uint8)
-    open_frame = cv2.morphologyEx(frame, cv2.MORPH_OPEN, kernel)
-    close_frame = cv2.morphologyEx(open_frame, cv2.MORPH_CLOSE, kernel)
-    return close_frame
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(6,6))
+    dilated = cv2.erode(frame, kernel)
+    return dilated
 
 def draw_frame_with_contours(frame, contours, name='Contours'):
     frame_copy = frame[:]
@@ -40,8 +45,8 @@ def draw_frame_with_contours(frame, contours, name='Contours'):
 
 def filter_small_contours(contours, template=False):
     if template:
-        return sorted(contours, key=cv2.contourArea, reverse=True)[0:1]
-    return sorted(contours, key=cv2.contourArea, reverse=True)[:5]
+        return sorted(contours, key=cv2.contourArea, reverse=True)[1:2]
+    return sorted(contours, key=cv2.contourArea, reverse=True)[:10]
 
 def match_best_contours(frame_contours, template_contours):
     contours_similarity = []
@@ -50,8 +55,11 @@ def match_best_contours(frame_contours, template_contours):
             contours_match, similarity = match_contours(frame_contour, template_contour)
             if contours_match:
                 contours_similarity.append(similarity)
-    print(contours_similarity)
-    # do something
+
+    similarities_exist = len(contours_similarity) > 0
+    frame_similarity = sum(contours_similarity)
+    if similarities_exist and frame_similarity <= 0.3:
+        print("FKN MATCHED BOIIII: ", frame_similarity)
 
 def match_contours(frame_contour, template_contour):
     if not areas_match(frame_contour, template_contour):
@@ -71,7 +79,6 @@ def areas_match(frame_contour, template_contour):
         ( frame_contour_area - template_contour_area )/ frame_contour_area
     ) * 100
 
-    print('Area percentage difference: ', percentage_difference)
     if percentage_difference <= AREA_THRESHOLD:
         return True
     return False
