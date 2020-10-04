@@ -55,9 +55,6 @@ while (cap.isOpened()):
     frame = cv2.morphologyEx(frame, cv2.MORPH_CLOSE, kernel)
 
     contours, hierachy = cv2.findContours(template, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    #XXX: How do we deal with the bars showing up as contours
-    # - if the countour is too rectanglular, get rid of it
-    # - if the countour is cyclindrical, get rid of it
     sorted_contours = sorted(contours, key=cv2.contourArea, reverse=True)[1:]
 
     template_contours = sorted_contours[0]

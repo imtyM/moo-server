@@ -6,6 +6,7 @@
 ### Project specific ###
 /cow_data
 /pictures
+/videos
 
 ### Code ###
 .vscode/*

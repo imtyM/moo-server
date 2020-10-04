@@ -1,11 +1,11 @@
 import cv2
 
 from template_matching import templateMatching
-from contour_matching import contourMatching
-from frame_minipulations import BgrToHsv
+from contour_matching import contourMatching, determine_best_contours_for_frame
+from frame_minipulations import BgrToHsv, loadImagesFromFolder, getROI
 
-videoFolder = './cow_data/'
-fileName = '6.mp4'
+videoFolder = './videos/'
+fileName = '1.mp4'
 __input = videoFolder + fileName
 cap = cv2.VideoCapture(__input)
 
@@ -22,14 +22,27 @@ while True:
         break
     else:
         frame_counter = frame_counter + 1
-        if (frame_counter < 240):
+        if (frame_counter < 260):
             continue
-        print('Showing frame ', frame_counter)
-        # cv2.imshow('original', frame)
-        template = cv2.imread('./pictures/Cow1.jpg')
-        # cv2.imshow('template', template)
+        frame = getROI(frame)
+        templates_with_ids = loadImagesFromFolder('./pictures')
 
-        contourMatching(frame, template)
+        hits = []
+        for idx, template_with_id in enumerate(templates_with_ids):
+            template = template_with_id[0]
+            hit, similarity = contourMatching(frame, getROI(template))
+            if hit:
+                id = template_with_id[1]
+                print(f'Hit on {id} with similarity of {similarity}')
+                hits.append((similarity, id, template))
+
+        if len(hits) > 0:
+            similarities = [similarity for similarity, name, template in hits]
+            best_similarity_index = similarities.index(min(similarities))
+            determine_best_contours_for_frame(getROI(hits[best_similarity_index][2]), 'Best hit template', show_frame=True)
+            print('Best hit on ID: ', hits[best_similarity_index][1])
+        else:
+            print('No hit')
         # hsvFrame = BgrToHsv(frame)
         # templateMatching(frame)
         ch = cv2.waitKey(0)

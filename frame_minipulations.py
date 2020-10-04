@@ -19,7 +19,7 @@ high_S_name = 'High S'
 high_V_name = 'High V'
 
 def loadImagesFromFolder(folder):
-    return [cv2.imread(os.path.join(folder, filename)) for filename in os.listdir(folder) if cv2.imread(os.path.join(folder, filename)) is not None]
+    return [(cv2.imread(os.path.join(folder, filename)), filename) for filename in os.listdir(folder) if cv2.imread(os.path.join(folder, filename)) is not None]
 
 # function to detect the ROI for the cow.
 # We need a range of RGB values for the color of the corners - In our case it's red
@@ -32,10 +32,10 @@ def getROI(frame):
     # highX = 919
     # lowY = 185
     # highY = 570
-    lowX = 34
-    highX = 1250
-    lowY = 91
-    highY = 542
+    lowX = 0
+    highX = 1080
+    lowY = 150
+    highY = 550
     cropped = frame[lowY:highY, lowX: highX]
     return cropped
     # print('shape', frame.shape)
