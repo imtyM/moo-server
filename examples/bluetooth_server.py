@@ -9,7 +9,7 @@ print('=========================\n')
 print('Setting up bluetooth')
 try:
     server_sock = BluetoothSocket( RFCOMM  )
-    server_sock.bind(('',9999))
+    server_sock.bind(('',PORT_ANY))
     server_sock.listen(1)
 except:
     print('Trouble binding to RFCOMM. Does your pc even have bluetooth?😕\n Bluetooth NOT setup.🖕\n\n')
@@ -23,7 +23,7 @@ advertise_service(
         server_sock, 'TestServer',
         service_id = uuid,
         service_classes = [ uuid, SERIAL_PORT_CLASS  ],
-        profiles = [ SERIAL_PORT_PROFILE  ],
+        profiles = [ SERIAL_PORT_PROFILE ]
         #protocols = [ OBEX_UUID  ]
 )
 print('Waiting for connection on RFCOMM channel ', port)
