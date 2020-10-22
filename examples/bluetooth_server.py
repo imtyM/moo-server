@@ -8,6 +8,7 @@ from bluetooth import *
 print('=========================\n')
 print('Setting up bluetooth')
 try:
+    print(RFCOMM)
     server_sock = BluetoothSocket( RFCOMM  )
     server_sock.bind(('',PORT_ANY))
     server_sock.listen(1)
