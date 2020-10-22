@@ -36,13 +36,10 @@ class Blue:
         print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
-        try:
-            data_recieved = client_sock.recv(1024)
-            if len(req) == 0:
-                raise
+        data_recieved = self.client_sock.recv(1024)
+        if data_recieved && len(data_recieved) > 0:
             return data_recieved
-        except:
-            print('Had a bad time recieving data.')
+        return None
 
     def send_data(self, data=None):
         print('sending: ', data)
