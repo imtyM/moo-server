@@ -37,7 +37,7 @@ class Blue:
 
     def recieve_data(self):
         data_recieved = self.client_sock.recv(1024)
-        if data_recieved && len(data_recieved) > 0:
+        if data_recieved and len(data_recieved) > 0:
             return data_recieved
         return None
 
