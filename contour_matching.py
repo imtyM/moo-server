@@ -1,8 +1,6 @@
 import cv2
 import numpy as np
 from numpy.linalg import norm
-import random as rng
-from scipy.interpolate import splprep, splev
 
 from frame_minipulations import BgrToHsv
 
@@ -86,22 +84,22 @@ def areas_match(frame_contour, template_contour):
         return True
     return False
 
-# NOTE: This is really really expensive, need an alt
-def smoothen_contours(contours):
-    smoothened = []
-    for contour in contours:
-        x,y = contour.T
-        # Convert from numpy arrays to normal arrays
-        x = x.tolist()[0]
-        y = y.tolist()[0]
-        # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splprep.html
-        tck, u = splprep([x,y], u=None, s=1.0, per=1)
-        # https://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.linspace.html
-        u_new = np.linspace(u.min(), u.max(), 25)
-        # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splev.html
-        x_new, y_new = splev(u_new, tck, der=0)
-        # Convert it back to numpy format for opencv to be able to display it
-        res_array = [[[int(i[0]), int(i[1])]] for i in zip(x_new,y_new)]
-        smoothened.append(np.asarray(res_array, dtype=np.int32))
-    return smoothened
+# # NOTE: This is really really expensive, need an alt
+# def smoothen_contours(contours):
+    # smoothened = []
+    # for contour in contours:
+        # x,y = contour.T
+        # # Convert from numpy arrays to normal arrays
+        # x = x.tolist()[0]
+        # y = y.tolist()[0]
+        # # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splprep.html
+        # tck, u = splprep([x,y], u=None, s=1.0, per=1)
+        # # https://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.linspace.html
+        # u_new = np.linspace(u.min(), u.max(), 25)
+        # # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splev.html
+        # x_new, y_new = splev(u_new, tck, der=0)
+        # # Convert it back to numpy format for opencv to be able to display it
+        # res_array = [[[int(i[0]), int(i[1])]] for i in zip(x_new,y_new)]
+        # smoothened.append(np.asarray(res_array, dtype=np.int32))
+    # return smoothened
 
