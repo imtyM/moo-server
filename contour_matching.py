@@ -86,6 +86,7 @@ def areas_match(frame_contour, template_contour):
         return True
     return False
 
+# NOTE: This is really really expensive, need an alt
 def smoothen_contours(contours):
     smoothened = []
     for contour in contours:

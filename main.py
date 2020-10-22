@@ -1,16 +1,28 @@
-## Setup db
-## Setup image processing
-## Setup bluetooth coms
+from image_processor import ImageProcessor
+from blue import Blue
+from modes import Modes
 
-## Wait for cow to get onto the scale
-    ## If register mode:
-        ## Position cow.
-            ## Use app to signal to take a picture and do health check:
-                #send cow data to front and go idle
-    ## Else if active:
-        ## When scale feels like there is a cow on it:
-            #Do image processing
-                #If know cow:
-                    #send cow data to front
-    ## Else if idle:
-        ## Do nothing
+mode = Modes.IDLE
+## Setup image processing
+image_processor = ImageProcessor(debug=True)
+
+bluetooth = Blue()
+
+# weight_detector = WeightDetector()
+
+# while True:
+    # mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
+    # continue if data_recieved
+
+    # if mode == Modes.REGISTER:
+        # # TODO: Lameness detector doesnt exist
+        # valid, cow_data = weight_detector.detectCowLameness()
+        # # TODO: registerEpoch does not exist
+        # cow_id = image_processor.registerEpoch(cap, valid, cow_data)
+        # bluetooth.processOutputToBluetooth(valid, cow_data, cow_id)
+
+    # if mode == Modes.DETECT:
+        # valid, cow_data = weight_detector.detectCowLameness()
+        # # TODO: detectEpoch does not exist
+        # cow_id = image_processor.detectEpoch(cap)
+        # bluetooth.processOutputToBluetooth(valid, cow_data, cow_id)
