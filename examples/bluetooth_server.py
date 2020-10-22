@@ -1,55 +1,53 @@
 #!/usr/bin/env python
-'''
-A simple test server that returns a random number when sent the text 'temp' via Bluetooth serial.
-'''
+"""
+A simple test server that returns a random number when sent the text "temp" via Bluetooth serial.
+"""
+
+import random
 
 from bluetooth import *
 
-print('=========================\n')
-print('Setting up bluetooth')
-try:
-    print(RFCOMM)
-    server_sock = BluetoothSocket( RFCOMM  )
-    server_sock.bind(('',PORT_ANY))
-    server_sock.listen(1)
-except:
-    print('Trouble binding to RFCOMM. Does your pc even have bluetooth?😕\n Bluetooth NOT setup.🖕\n\n')
+server_sock = BluetoothSocket( RFCOMM  )
+server_sock.bind(("",PORT_ANY))
+server_sock.listen(1)
 
 port = server_sock.getsockname()[1]
 
-print(server_sock.getsockname())
-uuid = '94f39d29-7d6d-437d-973b-fba39e49d4ee'
+uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 
-advertise_service(
-        server_sock, 'TestServer',
-        service_id = uuid,
-        service_classes = [ uuid, SERIAL_PORT_CLASS  ],
-        profiles = [ SERIAL_PORT_PROFILE ]
-        #protocols = [ OBEX_UUID  ]
+advertise_service( server_sock, "TestServer",
+    service_id = uuid,
+    service_classes = [ uuid, SERIAL_PORT_CLASS  ],
+    profiles = [ SERIAL_PORT_PROFILE  ],
+    #                   protocols = [ OBEX_UUID  ]
 )
-print('Waiting for connection on RFCOMM channel ', port)
+
+print("Waiting for connection on RFCOMM channel")
 client_sock, client_info = server_sock.accept()
-print ('Accepted connection from ', client_info, '. Bluetooth server setup complete.👌\n\n')
+print("Accepted connection from ", client_info)
 
 while True:
+
     try:
         req = client_sock.recv(1024)
         if len(req) == 0:
             break
-        print('received ', req)
 
-        print('sending ', req)
-        client_sock.send(req)
+        data = None
+        if req in ('temp', '*temp'):
+            data = str(random.random())+'!'
+        else:
+            pass
+
+        if data:
+            client_sock.send(data)
 
     except IOError:
         pass
 
     except KeyboardInterrupt:
-        print('disconnected')
 
         client_sock.close()
         server_sock.close()
-        print('all done')
 
         break
-
