@@ -20,12 +20,12 @@ class Blue:
             print('Trouble binding to RFCOMM. Does your pc even have bluetooth?😕\n Bluetooth NOT setup.🖕\n\n')
             return
 
-        port = server_sock.getsockname()[1]
+        port = self.server_sock.getsockname()[1]
 
         uuid = '94f39d29-7d6d-437d-973b-fba39e49d4ee'
 
         advertise_service(
-                server_sock, 'TestServer',
+                self.server_sock, 'TestServer',
                 service_id = uuid,
                 service_classes = [ uuid, SERIAL_PORT_CLASS  ],
                 profiles = [ SERIAL_PORT_PROFILE  ],
@@ -33,7 +33,7 @@ class Blue:
         )
         print('Waiting for connection on RFCOMM channel ', port)
         self.client_sock, self.client_info = server_sock.accept()
-        print ('Accepted connection from ', client_info, '. Bluetooth server setup complete.👌\n\n')
+        print ('Accepted connection from ', self.client_info, '. Bluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
         try:
