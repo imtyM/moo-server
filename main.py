@@ -4,7 +4,7 @@ from modes import Modes
 
 mode = Modes.IDLE
 ## Setup image processing
-# image_processor = ImageProcessor(debug=True)
+image_processor = ImageProcessor(debug=True)
 
 bluetooth = Blue()
 
