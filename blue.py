@@ -31,7 +31,7 @@ class Blue:
                 profiles = [ SERIAL_PORT_PROFILE  ],
                 #protocols = [ OBEX_UUID  ]
         )
-        print('Waiting for connection on RFCOMM channel ', port)
+        print('Waiting for connection on RFCOMM channel: ', port, '\nConnect with your phone to proceed.....\n\n')
         self.client_sock, self.client_info = self.server_sock.accept()
         print ('Accepted connection from ', self.client_info, '. Bluetooth server setup complete.👌\n\n')
 
