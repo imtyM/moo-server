@@ -1,4 +1,4 @@
-# from image_processor import ImageProcessor
+from image_processor import ImageProcessor
 from blue import Blue
 from modes import Modes
 
@@ -10,11 +10,11 @@ bluetooth = Blue()
 
 # weight_detector = WeightDetector()
 
-while True:
-    mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
-    if data_recieved:
-        print('Recieved data: ', data_recieved)
-        continue
+# while True:
+    # mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
+    # if data_recieved:
+        # print('Recieved data: ', data_recieved)
+        # continue
 
     # if mode == Modes.REGISTER:
         # # TODO: Lameness detector doesnt exist
