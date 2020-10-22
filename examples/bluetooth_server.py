@@ -13,7 +13,6 @@ try:
     server_sock.listen(1)
 except:
     print('Trouble binding to RFCOMM. Does your pc even have bluetooth?😕\n Bluetooth NOT setup.🖕\n\n')
-    return
 
 port = server_sock.getsockname()[1]
 
