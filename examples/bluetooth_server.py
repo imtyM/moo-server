@@ -16,6 +16,7 @@ except:
 
 port = server_sock.getsockname()[1]
 
+print(server_sock.getsockname())
 uuid = '94f39d29-7d6d-437d-973b-fba39e49d4ee'
 
 advertise_service(
