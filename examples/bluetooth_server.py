@@ -9,7 +9,7 @@ print('=========================\n')
 print('Setting up bluetooth')
 try:
     server_sock = BluetoothSocket( RFCOMM  )
-    server_sock.bind(('',2))
+    server_sock.bind(('',9999))
     server_sock.listen(1)
 except:
     print('Trouble binding to RFCOMM. Does your pc even have bluetooth?😕\n Bluetooth NOT setup.🖕\n\n')
