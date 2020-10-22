@@ -60,7 +60,7 @@ class Blue:
                 print('Got ', data_recieved, 'from client, and its not a valid int')
 
             if not type(recieved_mode) == int or recieved_mode < 0 or recieved_mode > 2:
-                raise('The recieved_mode needs to be an int, got this tho: ', data_recieved)
+                print('The recieved_mode needs to be an int, got this tho: ', data_recieved)
             else:
                 return Modes(recieved_mode), data_recieved
         return mode, None
