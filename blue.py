@@ -53,7 +53,12 @@ class Blue:
     def processInputFromBluetooth(self, mode):
         data_recieved = self.recieve_data()
         if data_recieved:
-            recieved_mode = int(data_recieved)
+            recieved_mode = None
+            try:
+                recieved_mode = int(data_recieved)
+            except:
+                print('Got ', data_recieved, 'from client, and its not a valid int')
+
             if not type(recieved_mode) == int or recieved_mode < 0 or recieved_mode > 2:
                 raise('The recieved_mode needs to be an int, got this tho: ', data_recieved)
             else:
