@@ -53,7 +53,7 @@ class Blue:
     # @return mode [Mode]: The mode that is set from data recieved from the
     #         bluetooth dewise, defaults to current mode
     # @return data_recieved [String]: recieved data
-    def processInputFromBluetooth(mode):
+    def processInputFromBluetooth(self, mode):
         data_recieved = self.recieve_data()
         recieved_mode = Int(data_recieved)
         if not type(recieved_mode) == Int or recieved_mode < 0 or recieved_mode > 2:
