@@ -32,6 +32,7 @@ while True:
         req = client_sock.recv(1024)
         if len(req) == 0:
             break
+        print(req)
 
         data = None
         if req in ('temp', '*temp'):
