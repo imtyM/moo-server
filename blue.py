@@ -33,7 +33,7 @@ class Blue:
         )
         print('Waiting for connection on RFCOMM channel: ', port, '\nConnect with your phone to proceed.....\n\n')
         self.client_sock, self.client_info = self.server_sock.accept()
-        print ('Accepted connection from ', self.client_info, '. Bluetooth server setup complete.👌\n\n')
+        print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
         try:
@@ -56,9 +56,9 @@ class Blue:
     def processInputFromBluetooth(mode):
         data_recieved = self.recieve_data()
         recieved_mode = Int(data_recieved)
-        if not type(recieved_mode) == Int:
-            raise('The recieved_mode needs to be an int')
-        return Modes(recieved_mode)
+        if not type(recieved_mode) == Int or recieved_mode < 0 or recieved_mode > 2:
+            raise('The recieved_mode needs to be an int, got this tho: ', data_recieved)
+        return Modes(recieved_mode), data_recieved
 
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
