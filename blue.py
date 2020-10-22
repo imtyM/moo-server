@@ -32,7 +32,7 @@ class Blue:
                 #protocols = [ OBEX_UUID  ]
         )
         print('Waiting for connection on RFCOMM channel ', port)
-        self.client_sock, self.client_info = server_sock.accept()
+        self.client_sock, self.client_info = self.server_sock.accept()
         print ('Accepted connection from ', self.client_info, '. Bluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
