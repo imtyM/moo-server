@@ -64,7 +64,8 @@ class Blue:
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
     def processOutputToBluetooth(valid, cow_data, cow_id):
-        return if not valid
+        if not valid:
+            return
 
         json_cow_data = json.dumps(cow_data, separators=(',', ':'))
         self.send_data(json_cow_data)
