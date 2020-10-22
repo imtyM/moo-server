@@ -34,14 +34,7 @@ while True:
             break
         print(req)
 
-        data = None
-        if req in ('temp', '*temp'):
-            data = str(random.random())+'!'
-        else:
-            pass
-
-        if data:
-            client_sock.send(data)
+        client_sock.send(req)
 
     except IOError:
         pass
