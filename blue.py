@@ -67,7 +67,7 @@ class Blue:
             references = payload.get('references', references)
 
             return data_recieved, Modes(recieved_mode), references
-        return mode, None
+        return None, mode, references
 
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
