@@ -1,4 +1,6 @@
 import json
+import socket
+import sys
 from bluetooth import *
 
 from modes import Modes
@@ -33,10 +35,26 @@ class Blue:
         )
         print('Waiting for connection on RFCOMM channel: ', port, '\nConnect with your phone to proceed.....\n\n')
         self.client_sock, self.client_info = self.server_sock.accept()
+        self.client_sock.settimeout(2)
+        self.client_sock.setblocking(False)
         print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
-        data_recieved = self.client_sock.recv(1024)
+        try:
+            data_recieved = self.client_sock.recv(1024)
+        except socket.timeout, e:
+            err = e.args[0]
+
+            if err == 'timed out':
+                print('No data this time round')
+                continue
+            else:
+                print(e)
+                sys.exit(1)
+        except socket.error, e:
+            print(e)
+            sys.exit(1)
+
         if data_recieved and len(data_recieved) > 0:
             return data_recieved
         return None
