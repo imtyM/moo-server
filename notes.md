@@ -1,7 +1,7 @@
 # Notes
 
 ## Critical
-- Convert the image processing functions and stuff into a class
+- Load app on boot, and make sure its persistent
 
 ## Optomising image processing
 - Downscale images
@@ -13,3 +13,4 @@
 - We need a way to add weight to cows with multi features that hit
 - Noise templates
 - Smoothen contours
+
