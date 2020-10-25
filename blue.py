@@ -42,16 +42,15 @@ class Blue:
     def recieve_data(self):
         try:
             data_recieved = self.client_sock.recv(1024)
-        except socket.timeout, e:
+        except(socket.timeout, e):
             err = e.args[0]
 
             if err == 'timed out':
                 print('No data this time round')
-                continue
             else:
                 print(e)
                 sys.exit(1)
-        except socket.error, e:
+        except(socket.error, e):
             print(e)
             sys.exit(1)
 
