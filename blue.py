@@ -40,19 +40,7 @@ class Blue:
         print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
-        try:
-            data_recieved = self.client_sock.recv(1024)
-        except(socket.timeout, e):
-            err = e.args[0]
-
-            if err == 'timed out':
-                print('No data this time round')
-            else:
-                print(e)
-                sys.exit(1)
-        except(socket.error, e):
-            print(e)
-            sys.exit(1)
+        data_recieved = self.client_sock.recv(1024)
 
         if data_recieved and len(data_recieved) > 0:
             return data_recieved
