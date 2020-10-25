@@ -14,6 +14,7 @@ while True:
     mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
     if data_recieved:
         print('Recieved data: ', data_recieved)
+        bluetooth.processOutputToBluetooth(True, data_recieved, 1)
         continue
 
     # if mode == Modes.REGISTER:
