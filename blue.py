@@ -72,7 +72,7 @@ class Blue:
         if not valid:
             return
 
-        json_cow_data = json.dumps(cow_data, separators=(',', ':'))
+        json_cow_data = json.dumps(0, separators=(',', ':'))
         self.send_data(json_cow_data)
 
     def cleanup(self):
