@@ -68,7 +68,7 @@ class Blue:
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
-    def processOutputToBluetooth(valid, cow_data, cow_id):
+    def processOutputToBluetooth(self, valid, cow_data, cow_id):
         if not valid:
             return
 
