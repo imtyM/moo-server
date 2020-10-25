@@ -16,7 +16,7 @@ while True:
     references = weight_detector.get_sensor_references()
     print('Mode: ', mode)
 
-    data_recieved, mode, references = bluetooth.processInputFromBluetooth(mode)
+    data_recieved, mode, references = bluetooth.processInputFromBluetooth(mode, references)
     if data_recieved:
         print('Recieved data: ', data_recieved)
         # bluetooth.processOutputToBluetooth(True, data_recieved, 1)
