@@ -2,8 +2,9 @@ from image_processor import ImageProcessor
 from blue import Blue
 from weight_detector import WeightDetector
 from modes import Modes
+import time
 
-mode = Modes.IDLE
+mode = Modes.DETECT
 ## Setup image processing
 image_processor = ImageProcessor(debug=True)
 
@@ -12,14 +13,17 @@ bluetooth = Blue()
 weight_detector = WeightDetector(debug=False)
 
 while True:
-    # mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
-    # if data_recieved:
-        # print('Recieved data: ', data_recieved)
+    mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
+    if data_recieved:
+        print('Recieved data: ', data_recieved)
         # bluetooth.processOutputToBluetooth(True, data_recieved, 1)
-        # continue
+        continue
 
-    weights = weight_detector.take_weights()
-    weight_detector.print_weights(weights)
+    if mode == Modes.DETECT:
+        valid, cow_data = weight_detector.detectCowLameness()
+        bluetooth.send_cow_data(valid, cow_data, 1)
+
+    time.sleep(5)
 
     # if mode == Modes.REGISTER:
         # # TODO: Lameness detector doesnt exist

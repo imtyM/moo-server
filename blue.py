@@ -68,16 +68,12 @@ class Blue:
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
-    def processOutputToBluetooth(self, valid, cow_data, cow_id):
+    def send_cow_data(self, valid, cow_data, cow_id):
         if not valid:
             return
-        cow = {
-                'weight': 60,
-                'fr': 20,
-                'hl': 30
-        }
-        json_cow_data = json.dumps(cow, separators=(',', ':'))
-        self.send_data(json_cow_data)
+        payload = {**cow_data, 'id': cow_id}
+        json_payload = json.dumps(payload, separators=(',', ':'))
+        self.send_data(json_payload)
 
     def cleanup(self):
         self.client_sock.close()
