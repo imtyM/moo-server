@@ -83,6 +83,7 @@ class Blue:
             'cow_data': {**cow_data, 'id': cow_id},
             'mode': mode.value
         }
+        print(payload)
         json_payload = json.dumps(payload, separators=(',', ':'))
         self.send_data(json_payload)
 

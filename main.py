@@ -13,6 +13,7 @@ bluetooth = Blue()
 weight_detector = WeightDetector(debug=False)
 
 while True:
+    print('Mode: ', mode)
     mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
     if data_recieved:
         print('Recieved data: ', data_recieved)
