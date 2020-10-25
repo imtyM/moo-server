@@ -77,8 +77,6 @@ class Blue:
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
     def send_payload(self, valid=False, cow_data={}, cow_id=None, mode=Modes.IDLE):
-        if not valid:
-            return
         payload = {
             'valid': valid,
             'cowData': {**cow_data, 'id': cow_id},
