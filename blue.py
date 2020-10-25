@@ -83,6 +83,7 @@ class Blue:
             'references': references
         }
         json_payload = json.dumps(payload, separators=(',', ':'))
+        print(json_payload)
         self.send_data(json_payload)
 
     def cleanup(self):
