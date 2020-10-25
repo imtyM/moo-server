@@ -40,6 +40,7 @@ class Blue:
         print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
+        data_recieved = None
         try:
             data_recieved = self.client_sock.recv(1024)
         except:
