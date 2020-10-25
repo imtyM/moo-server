@@ -13,19 +13,19 @@ bluetooth = Blue()
 weight_detector = WeightDetector(debug=False)
 
 while True:
-    print(mode)
     mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
-    print('bluetooth????')
     if data_recieved:
         print('Recieved data: ', data_recieved)
         # bluetooth.processOutputToBluetooth(True, data_recieved, 1)
         continue
 
     if mode == Modes.DETECT:
-        print('Detecting...\n')
         valid, cow_data = weight_detector.detectCowLameness()
-        bluetooth.send_cow_data(valid, cow_data, 1)
-
+        bluetooth.send_payload(
+            valid=valid,
+            cow_data=cow_data,
+            mode=mode
+        )
     time.sleep(5)
 
     # if mode == Modes.REGISTER:
