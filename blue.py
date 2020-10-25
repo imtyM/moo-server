@@ -61,9 +61,9 @@ class Blue:
     def processInputFromBluetooth(self, mode, references):
         data_recieved = self.recieve_data()
         if data_recieved:
+            print(data_recieved)
             payload = json.loads(data_recieved)
-            recieved_mode = None
-            mode = payload.get('mode', mode)
+            recieved_mode = payload.get('mode', mode)
             references = payload.get('references', references)
 
             return data_recieved, Modes(recieved_mode), references
