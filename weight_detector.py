@@ -65,6 +65,7 @@ class WeightDetector():
         print(f'Front left: {weights[FRONT_LEFT]}\nFront right: {weights[FRONT_RIGHT]}\nHind right: {weights[HIND_RIGHT]}\nHind left: {weights[HIND_LEFT]}\n\n')
 
     def detectCowLameness(self):
+        print('detect cow lameness')
         weights = self.take_weights()
         self.print_weights(weights)
         cow_data = {
