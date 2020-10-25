@@ -64,7 +64,7 @@ class Blue:
             print(data_recieved)
             payload = json.loads(data_recieved)
             recieved_mode = payload.get('mode', mode)
-            references = payload.get('references', references)
+            # references = payload.get('references', references)
 
             return data_recieved, Modes(recieved_mode), references
         return None, mode, references
