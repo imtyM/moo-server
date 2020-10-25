@@ -43,7 +43,7 @@ class Blue:
 
     def send_data(self, data=None):
         print('sending: ', data)
-        self.client_sock.send(data)
+        self.client_sock.send(data + '\r\n')
 
     # @param mode [Mode]: Current mode of the system
     # @returns mode, data_recieved
@@ -72,7 +72,7 @@ class Blue:
         if not valid:
             return
 
-        json_cow_data = json.dumps(0, separators=(',', ':'))
+        json_cow_data = json.dumps('This is something', separators=(',', ':'))
         self.send_data(json_cow_data)
 
     def cleanup(self):
