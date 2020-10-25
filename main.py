@@ -9,7 +9,7 @@ image_processor = ImageProcessor(debug=True)
 
 bluetooth = Blue()
 
-weight_detector = WeightDetector(debug=True)
+weight_detector = WeightDetector(debug=False)
 
 while True:
     # mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
