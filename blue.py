@@ -71,8 +71,12 @@ class Blue:
     def processOutputToBluetooth(self, valid, cow_data, cow_id):
         if not valid:
             return
-
-        json_cow_data = json.dumps('This is something', separators=(',', ':'))
+        cow = {
+                'weight': 60,
+                'fr': 20,
+                'hl': 30
+        }
+        json_cow_data = json.dumps(cow, separators=(',', ':'))
         self.send_data(json_cow_data)
 
     def cleanup(self):
