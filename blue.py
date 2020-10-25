@@ -36,7 +36,7 @@ class Blue:
         print('Waiting for connection on RFCOMM channel: ', port, '\nConnect with your phone to proceed.....\n\n')
         self.client_sock, self.client_info = self.server_sock.accept()
         # self.client_sock.settimeout(2)
-        # self.client_sock.setblocking(False)
+        self.client_sock.setblocking(0)
         print ('Accepted connection from ', self.client_info, '. \nBluetooth server setup complete.👌\n\n')
 
     def recieve_data(self):
