@@ -64,9 +64,10 @@ class Blue:
             payload = json.loads(data_recieved)
             print(payload)
             recieved_mode = payload.get('mode', mode)
-            references_string = payload.get('references', references)
-            references_values = references_string.split('\n')
-            print(references_values)
+            references_string = payload.get('references')
+            new_references = self.parse_references(references_string, references)
+
+            print(new_references)
 
 
             return data_recieved, Modes(recieved_mode), references
@@ -88,3 +89,18 @@ class Blue:
     def cleanup(self):
         self.client_sock.close()
         self.server_sock.close()
+
+    def parse_references(self, references_string, references):
+        if not references_string:
+            return references
+        references_values = references_string.split('\n')
+        new_references = {
+            'front_left_reference': int(references_values[0]),
+            'front_right_reference': int(references_values[1]),
+            'hind_right_reference': int(references_values[2]),
+            'hind_left_reference': int(references_values[3])
+        }
+        if all(type(value) == int for value in new_references.values()):
+            return new_references
+        return references
+
