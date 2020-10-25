@@ -80,10 +80,10 @@ class Blue:
         if not valid:
             return
         payload = {
+            'valid': valid,
             'cowData': {**cow_data, 'id': cow_id},
             'mode': mode.value
         }
-        print(payload)
         json_payload = json.dumps(payload, separators=(',', ':'))
         self.send_data(json_payload)
 

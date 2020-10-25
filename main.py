@@ -27,6 +27,8 @@ while True:
             cow_data=cow_data,
             mode=mode
         )
+
+    bluetooth.send_payload(mode=mode)
     time.sleep(5)
 
     # if mode == Modes.REGISTER:
@@ -34,10 +36,4 @@ while True:
         # valid, cow_data = weight_detector.detectCowLameness()
         # # TODO: registerEpoch does not exist
         # cow_id = image_processor.registerEpoch(cap, valid, cow_data)
-        # bluetooth.processOutputToBluetooth(valid, cow_data, cow_id)
-
-    # if mode == Modes.DETECT:
-        # valid, cow_data = weight_detector.detectCowLameness()
-        # # TODO: detectEpoch does not exist
-        # cow_id = image_processor.detectEpoch(cap)
         # bluetooth.processOutputToBluetooth(valid, cow_data, cow_id)
