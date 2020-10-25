@@ -69,8 +69,7 @@ class Blue:
 
             print(new_references)
 
-
-            return data_recieved, Modes(recieved_mode), references
+            return data_recieved, Modes(recieved_mode), new_references
         return None, mode, references
 
     # @param valid [Bool]: Flag if the cow_data is valid
