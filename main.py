@@ -11,14 +11,16 @@ image_processor = ImageProcessor(debug=True)
 bluetooth = Blue()
 
 weight_detector = WeightDetector(debug=False)
-
 while True:
     try:
+        references = weight_detector.get_sensor_references()
         print('Mode: ', mode)
-        mode, data_recieved = bluetooth.processInputFromBluetooth(mode)
+
+        data_recieved, mode, references = bluetooth.processInputFromBluetooth(mode)
         if data_recieved:
             print('Recieved data: ', data_recieved)
             # bluetooth.processOutputToBluetooth(True, data_recieved, 1)
+            weight_detector.set_sensor_references(references)
             continue
 
         if mode == Modes.DETECT:
@@ -26,11 +28,12 @@ while True:
             bluetooth.send_payload(
                 valid=valid,
                 cow_data=cow_data,
-                mode=mode
+                mode=mode,
+                references=references
             )
 
         if mode == Modes.IDLE:
-            bluetooth.send_payload(mode=mode)
+            bluetooth.send_payload(mode=mode, references=references)
 
         time.sleep(0.5)
     except:

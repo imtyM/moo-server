@@ -32,17 +32,33 @@ class WeightDetector():
             HX711(HIND_RIGHT_PIN, CLOCK_PIN),
             HX711(HIND_LEFT_PIN, CLOCK_PIN)
         ]
-        self._set_sensor_references()
+        self.init_sensor_references()
         self._setup_sensors()
 
         print('Weight detector setup complete.👌\n\n')
 
-    def _set_sensor_references(self):
+    def init_sensor_references(self):
         print('Connecting sensors...\n')
         self.sensors[FRONT_LEFT].set_reference_unit(self.front_left_reference)
         self.sensors[FRONT_RIGHT].set_reference_unit(self.front_right_reference)
         self.sensors[HIND_LEFT].set_reference_unit(self.hind_left_reference)
         self.sensors[HIND_RIGHT].set_reference_unit(self.hind_right_reference)
+
+    def set_sensor_references(self, references):
+        self.front_left_reference: references.get('front_left_reference', self.front_left_reference),
+        self.front_right_reference: references.get('front_right_reference', self.front_right_reference),
+        self.hind_right_reference: references.get('hind_right_reference', self.hind_right_reference),
+        self.hind_left_reference: references.get('hind_left_reference', self.hind_left_reference),
+
+
+    def get_sensor_references(self):
+        return {
+            'front_left_reference': self.front_left_reference,
+            'front_right_reference': self.front_right_reference,
+            'hind_right_reference': self.hind_right_reference,
+            'hind_left_reference': self.hind_left_reference,
+        }
+
 
     def _setup_sensors(self):
         for idx, sensor in enumerate(self.sensors):

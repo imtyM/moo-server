@@ -58,19 +58,15 @@ class Blue:
     # @return mode [Mode]: The mode that is set from data recieved from the
     #         bluetooth dewise, defaults to current mode
     # @return data_recieved [String]: recieved data
-    def processInputFromBluetooth(self, mode):
+    def processInputFromBluetooth(self, mode, references):
         data_recieved = self.recieve_data()
         if data_recieved:
+            payload = json.loads(data_recieved)
             recieved_mode = None
-            try:
-                recieved_mode = int(data_recieved)
-            except:
-                print('Got ', data_recieved, 'from client, and its not a valid int')
+            mode = payload.get('mode', mode)
+            references = payload.get('references', references)
 
-            if not type(recieved_mode) == int or recieved_mode < 0 or recieved_mode > 2:
-                print('The recieved_mode needs to be a valid mode, got this tho: ', data_recieved)
-            else:
-                return Modes(recieved_mode), data_recieved
+            return data_recieved, Modes(recieved_mode), references
         return mode, None
 
     # @param valid [Bool]: Flag if the cow_data is valid
