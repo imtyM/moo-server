@@ -72,11 +72,12 @@ class Blue:
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
-    def send_payload(self, valid=False, cow_data={}, cow_id=None, mode=Modes.IDLE):
+    def send_payload(self, valid=False, cow_data={}, cow_id=None, mode=Modes.IDLE, references={}):
         payload = {
             'valid': valid,
             'cowData': {**cow_data, 'id': cow_id},
-            'mode': mode.value
+            'mode': mode.value,
+            'references': references
         }
         json_payload = json.dumps(payload, separators=(',', ':'))
         self.send_data(json_payload)
