@@ -44,7 +44,6 @@ class Blue:
         try:
             data_recieved = self.client_sock.recv(1024)
         except(socket.error):
-            print('Some error occured...')
             pass
 
         if data_recieved and len(data_recieved) > 0:
@@ -52,7 +51,6 @@ class Blue:
         return None
 
     def send_data(self, data=None):
-        print('sending: ', data)
         self.client_sock.send(data + '\r\n')
 
     # @param mode [Mode]: Current mode of the system
