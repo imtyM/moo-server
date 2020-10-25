@@ -20,6 +20,7 @@ while True:
         continue
 
     if mode == Modes.DETECT:
+        print('Detecting...\n')
         valid, cow_data = weight_detector.detectCowLameness()
         bluetooth.send_cow_data(valid, cow_data, 1)
 
