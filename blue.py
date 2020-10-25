@@ -80,7 +80,7 @@ class Blue:
         if not valid:
             return
         payload = {
-            'cow_data': {**cow_data, 'id': cow_id},
+            'cowData': {**cow_data, 'id': cow_id},
             'mode': mode.value
         }
         print(payload)
