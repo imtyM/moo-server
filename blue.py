@@ -43,7 +43,7 @@ class Blue:
         data_recieved = None
         try:
             data_recieved = self.client_sock.recv(1024)
-        except(bluetooth.error, e):
+        except(socket.error, e):
             print('Some error occured...')
             pass
 
