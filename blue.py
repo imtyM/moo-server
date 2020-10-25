@@ -43,7 +43,8 @@ class Blue:
         data_recieved = None
         try:
             data_recieved = self.client_sock.recv(1024)
-        except:
+        except(e):
+            print(e)
             pass
 
         if data_recieved and len(data_recieved) > 0:
