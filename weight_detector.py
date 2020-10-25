@@ -50,6 +50,11 @@ class WeightDetector():
         self.sensors[HIND_LEFT].set_reference_unit(references.get('hind_right_reference', self.hind_right_reference))
         self.sensors[HIND_RIGHT].set_reference_unit(references.get('hind_left_reference', self.hind_left_reference))
 
+        self.front_left_reference = references.get('front_left_reference', self.front_left_reference)
+        self.front_right_reference = references.get('front_right_reference', self.front_right_reference)
+        self.hind_right_reference = references.get('hind_right_reference', self.hind_right_reference)
+        self.hind_left_reference = references.get('hind_left_reference', self.hind_left_reference)
+
     def get_sensor_references(self):
         return {
             'front_left_reference': self.front_left_reference,
