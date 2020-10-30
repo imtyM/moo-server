@@ -1,7 +1,11 @@
 # Notes
 
 ## Critical
-- Load app on boot, and make sure its persistent
+- Integrate image processing
+- Integrate Lameness classification
+- make the ui acceptable
+- Server
+- report, help with bluetooth and application stuff and qtp for that
 
 ## Optomising image processing
 - Downscale images
