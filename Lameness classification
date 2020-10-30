@@ -1,0 +1,58 @@
+import numpy as np
+import statistics
+
+
+Cow = "Stef"
+Sensors = [170, 170, 150, 170]
+
+
+def Weight_distribution(fr, fl, br, bl):
+    weights = [fr, fl, br, bl]
+    deviation = statistics.stdev(weights)
+    total_front = np.sum(weights[:2])
+    total_rear = np.sum(weights[2:4])
+    distribution = [fr/total_front, fl/total_front, br/total_rear, bl/total_rear]
+    return distribution, deviation, np.sum(weights)
+
+def Classify (distribution):
+    Front_ratio = Distribution[0] / Distribution[1]
+    Back_ratio = Distribution[2] / Distribution[3]
+
+    if Front_ratio < 1:
+        print("Front right hoof may be injured", Front_ratio)
+    elif Front_ratio > 1:
+        print("Front Left hoof may be injured", Front_ratio)
+
+    if Back_ratio < 1:
+        print("Rear right hoof may be injured", Back_ratio)
+    elif Back_ratio > 1:
+        print("Rear Left hoof may be injured", Back_ratio)
+
+    if Back_ratio < 0.75 or Front_ratio < 0.75 or Back_ratio > 1.25 or Front_ratio > 1.25:
+        print(Cow + " is severly lame")
+        classification = 5
+    elif Back_ratio < 0.8 or Front_ratio < 0.8 or Back_ratio > 1.2 or Front_ratio > 1.2:
+        print(Cow + " is  lame")
+        classification = 4
+    elif Back_ratio < 0.85 or Front_ratio < 0.85 or Back_ratio > 1.15 or Front_ratio > 1.15:
+        print(Cow + " is Moderately lame")
+        classification = 3
+    elif Back_ratio < 0.9 or Front_ratio < 0.9 or Back_ratio > 1.1 or Front_ratio > 1.1:
+        print(Cow + " is  mildly lame")
+        classification = 2
+    elif Back_ratio < 0.95 or Front_ratio < 0.95 or Back_ratio > 1.05 or Front_ratio > 1.05:
+        print(Cow + " is Normal")
+        classification = 1
+    else:
+        print(Cow + " is healthy :)")
+        classification = 1
+
+    return classification
+
+
+Distribution, Deviation, Total = Weight_distribution(145, 140, 135, 150)
+print(Cow + "weighs approximately " + str(Total) + "kg")
+Classification = Classify(Distribution)
+print(Classification)
+
+print('Standard Deviation: ', Deviation)
