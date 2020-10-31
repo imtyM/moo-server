@@ -99,6 +99,8 @@ class WeightDetector():
     def lamness_classification(self, weights):
         front_ratio = self.calculate_ratio([180, 144])
         back_ratio = self.calculate_ratio([150, 150])
+        print('F: ', front_ratio)
+        print('B: ', front_ratio)
 
         leg_weight_ratio = min(front_ratio, back_ratio)
 
@@ -109,7 +111,7 @@ class WeightDetector():
     def calculate_ratio(self, weights):
         if 0 in weights:
             return 0
-        return max(weights)/min(weights)
+        return min(weights)/max(weights)
 
     def classify_leg_weight_ratio(self, leg_weight_ratio):
         if leg_weight_ratio <= 1 and leg_weight_ratio > 0.8:
