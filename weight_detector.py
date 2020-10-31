@@ -63,7 +63,6 @@ class WeightDetector():
             'hind_left_reference': self.hind_left_reference,
         }
 
-
     def _setup_sensors(self):
         for idx, sensor in enumerate(self.sensors):
             sensor.set_reading_format("MSB", "MSB")
@@ -85,13 +84,38 @@ class WeightDetector():
         print(f'Front left: {weights[FRONT_LEFT]}\nFront right: {weights[FRONT_RIGHT]}\nHind right: {weights[HIND_RIGHT]}\nHind left: {weights[HIND_LEFT]}\n\n')
 
     def detectCowLameness(self):
-        weights = self.take_weights()
+        weights = self.take_weights() # [120, 120, 120, 123]
+        lamness_class = self.lamness_classification(weights)
         self.print_weights(weights)
         cow_data = {
+                'lamness_class': lamness_class,
                 'frontLeft': weights[FRONT_LEFT],
                 'frontRight': weights[FRONT_RIGHT],
                 'hindRight': weights[HIND_RIGHT],
                 'hindLeft': weights[HIND_LEFT]
         }
-        # TODO: Do the lamness things
         return True, cow_data
+
+    def lamness_classification(self, weights):
+        front_ratio = calculate_ratio(weights[0:2])
+        back_ratio = calculate_ratio(weights[2:5])
+
+        leg_weight_ratio = min(front_ratio, back_ratio)
+        return classify_leg_weight_ratio(leg_weight_ratio)
+
+
+    def calculate_ratio(self, weights):
+        return max(weights)/min(weights)
+
+    def classify_leg_weight_ratio(self, leg_weight_ratio):
+        if leg_weight_ratio <= 1 and leg_weight_ratio > 0.8:
+            return 'healthy'
+        if leg_weight_ratio <= 0.8 and leg_weight_ratio > 0.6:
+            return 'okay'
+        if leg_weight_ratio <= 0.6 and leg_weight_ratio > 0.4:
+            return 'ehy'
+        if leg_weight_ratio <= 0.4 and leg_weight_ratio > 0.2:
+            return 'almost_ded'
+        if leg_weight_ratio <= 0.2 and leg_weight_ratio > 0.1:
+            return 'fucked_up'
+        return 'idk'

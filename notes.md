@@ -1,7 +1,8 @@
 # Notes
 
+
 ## Critical
-- Integrate image processing
+
 - Integrate Lameness classification
 - make the ui acceptable
 - Server
