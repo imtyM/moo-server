@@ -17,6 +17,7 @@ class ImageProcessor():
             fileName = '1.mp4'
             __input = videoFolder + fileName
             self.cap = cv2.VideoCapture(__input)
+            self.cap.set(1, 260)
         else:
             self.cap = cv2.VideoCapture(0)
 
@@ -35,8 +36,6 @@ class ImageProcessor():
                 break
             else:
                 frame_counter = frame_counter + 1
-                if (frame_counter < 260):
-                    continue
                 frame = getROI(frame)
                 templates_with_ids = loadImagesFromFolder('./pictures')
                 matchFrameToTemplates(frame, templates_with_ids, contourMatching)
