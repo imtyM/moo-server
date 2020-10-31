@@ -24,7 +24,7 @@ while True:
 
     if mode == Modes.DETECT:
         valid, cow_data = weight_detector.detectCowLameness()
-        cow_id = bluetooth.detectCow(valid)
+        cow_id = image_processor.detectCow(valid)
         bluetooth.send_payload(
             valid=valid,
             cow_data=cow_data,
