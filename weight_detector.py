@@ -97,10 +97,12 @@ class WeightDetector():
         return True, cow_data
 
     def lamness_classification(self, weights):
-        front_ratio = self.calculate_ratio(weights[0:2])
-        back_ratio = self.calculate_ratio(weights[2:5])
+        front_ratio = self.calculate_ratio([180, 144])
+        back_ratio = self.calculate_ratio([150, 150])
 
         leg_weight_ratio = min(front_ratio, back_ratio)
+
+        print(leg_weight_ratio)
         return self.classify_leg_weight_ratio(leg_weight_ratio)
 
 
