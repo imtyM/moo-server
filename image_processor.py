@@ -47,4 +47,19 @@ class ImageProcessor():
                 if ch == 27 or ch == ord('q') or ch == ord('Q'):
                     break
 
+    def detectCow(self, valid):
+        if not valid:
+            return None
+        ret, frame = self.cap.read()
+        if not ret:
+            print('Something went wrong reading from the camera')
+            return None
+
+        frame = getROI(frame)
+        ## XXX: this should be cached
+        templates_with_ids = loadImagesFromFolder('./pictures')
+        return matchFrameToTemplates(frame, templates_with_ids, contourMatching)
+
+
+
 

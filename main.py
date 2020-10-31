@@ -5,12 +5,11 @@ from modes import Modes
 import time
 
 mode = Modes.DETECT
-## Setup image processing
+
 image_processor = ImageProcessor(debug=True)
-
 bluetooth = Blue()
-
 weight_detector = WeightDetector(debug=False)
+
 while True:
     # try:
     references = weight_detector.get_sensor_references()
@@ -25,9 +24,11 @@ while True:
 
     if mode == Modes.DETECT:
         valid, cow_data = weight_detector.detectCowLameness()
+        cow_id = bluetooth.detectCow(valid)
         bluetooth.send_payload(
             valid=valid,
             cow_data=cow_data,
+            cow_id=cow_id
             mode=mode,
             references=references
         )
