@@ -125,5 +125,6 @@ class WeightDetector():
 
     def tare(self, tare):
         if tare:
+            self.init_sensor_references()
             self._setup_sensors()
 
