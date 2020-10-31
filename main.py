@@ -28,7 +28,7 @@ while True:
         bluetooth.send_payload(
             valid=valid,
             cow_data=cow_data,
-            cow_id=cow_id
+            cow_id=cow_id,
             mode=mode,
             references=references
         )
