@@ -27,7 +27,7 @@ def determine_best_contours_for_frame(frame, name, template=False, show_frame=Fa
         frame_with_contours = draw_frame_with_contours(morphed_frame, filtered_contours)
 
         title = f'{name} contours'
-        cv2.imshow(title, frame_with_contours)
+        # cv2.imshow(title, frame_with_contours)
 
     return filtered_contours
 

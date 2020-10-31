@@ -17,7 +17,7 @@ def matchFrameToTemplates(frame, templates_with_ids, matcher):
         cow_id = hits[best_similarity_index][1]
 
         # Show cow that matched, but is hard linked to contour_matching
-        determine_best_contours_for_frame(getROI(hits[best_similarity_index][2]), 'Best hit template', show_frame=True)
+        # determine_best_contours_for_frame(getROI(hits[best_similarity_index][2]), 'Best hit template', show_frame=True)
         print('Best hit on ID: ', hits[best_similarity_index][1])
         return cow_id
     else:

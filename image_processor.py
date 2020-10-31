@@ -12,6 +12,7 @@ class ImageProcessor():
     def setupImageProcessing(self, debug=False):
         print('=========================\n')
         print('Setting up image processor')
+        self.debug = debug
         if debug:
             videoFolder = './videos/'
             fileName = '1.mp4'
@@ -38,7 +39,7 @@ class ImageProcessor():
                 frame_counter = frame_counter + 1
                 frame = getROI(frame)
                 templates_with_ids = loadImagesFromFolder('./pictures')
-                matchFrameToTemplates(frame, templates_with_ids, contourMatching)
+                matchFrameToTemplates(frame, templates_with_ids, contourMatching, debug)
 
                 # hsvFrame = BgrToHsv(frame)
                 # templateMatching(frame)
