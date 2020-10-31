@@ -105,6 +105,8 @@ class WeightDetector():
 
 
     def calculate_ratio(self, weights):
+        if 0 in weights:
+            return 0
         return max(weights)/min(weights)
 
     def classify_leg_weight_ratio(self, leg_weight_ratio):
