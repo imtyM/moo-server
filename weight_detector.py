@@ -118,6 +118,6 @@ class WeightDetector():
             return 'ehy'
         if leg_weight_ratio <= 0.4 and leg_weight_ratio > 0.2:
             return 'almost_ded'
-        if leg_weight_ratio <= 0.2 and leg_weight_ratio > 0.1:
+        if leg_weight_ratio <= 0.2 and leg_weight_ratio >= 0:
             return 'fucked_up'
         return 'idk'
