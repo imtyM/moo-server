@@ -126,7 +126,7 @@ class WeightDetector():
     def tare(self, tare):
         if tare:
             for idx, sensor in enumerate(self.sensors):
-                # sensor.reset()
+                sensor.reset()
                 print(f'Taring {idx}....\n')
                 sensor.tare()
 
