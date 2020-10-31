@@ -65,12 +65,13 @@ class Blue:
             print(payload)
             recieved_mode = payload.get('mode', mode)
             references_string = payload.get('references')
+            tare = payload.get('tare', False)
             new_references = self.parse_references(references_string, references)
 
             print(new_references)
 
-            return data_recieved, Modes(recieved_mode), new_references
-        return None, mode, references
+            return data_recieved, Modes(recieved_mode), new_references, tare
+        return None, mode, references, False
 
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front

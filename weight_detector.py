@@ -99,12 +99,9 @@ class WeightDetector():
     def lamness_classification(self, weights):
         front_ratio = self.calculate_ratio([180, 144])
         back_ratio = self.calculate_ratio([150, 150])
-        print('F: ', front_ratio)
-        print('B: ', front_ratio)
 
         leg_weight_ratio = min(front_ratio, back_ratio)
 
-        print(leg_weight_ratio)
         return self.classify_leg_weight_ratio(leg_weight_ratio)
 
 
@@ -125,3 +122,11 @@ class WeightDetector():
         if leg_weight_ratio <= 0.2 and leg_weight_ratio >= 0:
             return 'fucked_up'
         return 'idk'
+
+    def tare(self, tare):
+        if tare:
+            for idx, sensor in enumerate(self.sensors):
+                # sensor.reset()
+                print(f'Taring {idx}....\n')
+                sensor.tare()
+
