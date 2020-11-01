@@ -70,7 +70,7 @@ class Blue:
             new_references = self.parse_references(references_string, references)
 
             return data_recieved, Modes(recieved_mode), new_references, tare, should_send_next_frame
-        return None, mode, references, False
+        return None, mode, references, False, False
 
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
