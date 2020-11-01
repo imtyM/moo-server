@@ -70,8 +70,10 @@ class Blue:
             should_send_next_frame = payload.get('should_send_next_frame', False)
             new_references = self.parse_references(references_string, references)
 
-            return data_recieved, Modes(recieved_mode), new_references, tare, should_send_next_frame
-        return None, mode, references, False, False
+            roi_bounds = self.parse_roi_bounds(payload.get('rois', None))
+
+            return data_recieved, Modes(recieved_mode), new_references, tare, should_send_next_frame, roi_bounds
+        return None, mode, references, False, False, None
 
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
@@ -105,6 +107,20 @@ class Blue:
         if all(type(value) == int for value in new_references.values()):
             return new_references
         return references
+
+    def parse_roi_bounds(self, roi_bounds_string):
+        if not roi_bounds_string:
+            return None
+        roi_values = references_string.split('\n')
+        new_references = {
+            'lowX': int(roi_values[0]),
+            'highX': int(roi_values[1]),
+            'lowY': int(roi_values[2]),
+            'highY': int(roi_values[3])
+        }
+        if all(type(value) == int for value in new_references.values()):
+            return new_references
+        return None
 
     def send_next_frame_base_64(self, base_64_image):
         if base_64_image is not None:

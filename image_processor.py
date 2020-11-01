@@ -9,6 +9,10 @@ class ImageProcessor():
     def __init__(self, debug=False):
         self.cap = None
         self.setupImageProcessing(debug=debug)
+        self.lowX = 0
+        self.highX = 1080
+        self.lowY = 0
+        self.highY = 720
 
     def setupImageProcessing(self, debug=False):
         print('=========================\n')
@@ -63,7 +67,7 @@ class ImageProcessor():
     def get_next_frame_base_64(self, should_send_next_frame):
         if should_send_next_frame:
             ret, frame = self.cap.read()
-            # roi_frame = getROI(frame)
+            roi_frame = getROI(frame, lowX=self.lowX, highX=self.highX, lowY=self.lowY, highY=self.highY)
             scaled_frame = scale_to_360(frame)
             _, buffer = cv2.imencode('.jpg', scaled_frame)
             base64_image = base64.b64encode(buffer).decode()
@@ -71,3 +75,9 @@ class ImageProcessor():
             return base64_image
         return None
 
+    def set_roi_bounds(self, roi_bounds):
+        if roi_bounds is not None:
+            self.lowX = roi_bounds.lowX
+            self.highX = roi_bounds.highX
+            self.lowY = roi_bounds.lowY
+            self.highY = roi_bounds.highY
