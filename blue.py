@@ -75,12 +75,13 @@ class Blue:
     # @param valid [Bool]: Flag if the cow_data is valid
     # @param cow_data [Dict]: Dict of the cow data to send to the front
     # @param cow_id: id of the cow
-    def send_payload(self, valid=False, cow_data={}, cow_id=None, mode=Modes.IDLE, references={}):
+    def send_payload(self, valid=False, cow_data={}, cow_id=None, mode=Modes.IDLE, references={}, base_64_image=None):
         payload = {
             'valid': valid,
             'cowData': {**cow_data, 'id': cow_id},
             'mode': mode.value,
-            'references': references
+            'references': references,
+            'base64Image': base_64_image
         }
         json_payload = json.dumps(payload, separators=(',', ':'))
         print(json_payload)
@@ -106,4 +107,4 @@ class Blue:
 
     def send_next_frame_base_64(self, base_64_image):
         if base_64_image is not None:
-            self.send_data(json_payload)
+            self.send_payload(base_64_image=base_64_image)
