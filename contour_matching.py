@@ -106,7 +106,6 @@ def areas_match(frame_contour, template_contour):
     ) * 100
 
     if percentage_difference <= AREA_THRESHOLD:
-        print(percentage_difference)
         return True
     return False
 
