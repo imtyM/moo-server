@@ -69,9 +69,7 @@ class Blue:
             should_send_next_frame = payload.get('should_send_next_frame', False)
             new_references = self.parse_references(references_string, references)
 
-            print(new_references)
-
-            return data_recieved, Modes(recieved_mode), new_references, tare
+            return data_recieved, Modes(recieved_mode), new_references, tare, should_send_next_frame
         return None, mode, references, False
 
     # @param valid [Bool]: Flag if the cow_data is valid
