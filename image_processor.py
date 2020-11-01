@@ -10,9 +10,9 @@ class ImageProcessor():
         self.cap = None
         self.setupImageProcessing(debug=debug)
         self.lowX = 0
-        self.highX = 1080
+        self.highX = 1920
         self.lowY = 0
-        self.highY = 720
+        self.highY = 1080
 
     def setupImageProcessing(self, debug=False):
         print('=========================\n')
