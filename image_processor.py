@@ -14,10 +14,10 @@ class ImageProcessor():
         print('Setting up image processor')
         if debug:
             videoFolder = './videos/'
-            fileName = '1.mp4'
+            fileName = 'tarp_2.mp4'
             __input = videoFolder + fileName
             self.cap = cv2.VideoCapture(__input)
-            self.cap.set(1, 260)
+            self.cap.set(1, 170)
         else:
             self.cap = cv2.VideoCapture(0)
 

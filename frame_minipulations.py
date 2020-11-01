@@ -28,14 +28,16 @@ def loadImagesFromFolder(folder):
 # @input - RGB frame
 # @return - cropped RGB image only with ROI.
 def getROI(frame):
+    # dim = (640, 480)
+    # scaled = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
     # lowX = 123
     # highX = 919
     # lowY = 185
     # highY = 570
-    lowX = 0
-    highX = 1080
-    lowY = 150
-    highY = 550
+    lowX = 50
+    highX = 1000
+    lowY = 50
+    highY = 460
     cropped = frame[lowY:highY, lowX: highX]
     return cropped
     # print('shape', frame.shape)
