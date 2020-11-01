@@ -27,7 +27,7 @@ def loadImagesFromFolder(folder):
 # anything within that range will be kept, the rest cropped out
 # @input - RGB frame
 # @return - cropped RGB image only with ROI.
-def getROI(frame, lowX=0, highX=1920, lowY=0, highY=1920):
+def getROI(frame, lowX=0, highX=1920, lowY=0, highY=1080):
     # scaled = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
     print(lowX)
     print(lowY)
