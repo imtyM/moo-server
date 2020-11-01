@@ -30,10 +30,10 @@ def loadImagesFromFolder(folder):
 def getROI(frame, lowX=50, highX=1000, lowY=50, highY=460):
     # scaled = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
     cropped = frame[lowY:highY, lowX: highX]
-    return cropped
+    return frame
 
 def scale_to_360(frame):
-    return cv2.resize(frame, (108, 72), interpolation=cv2.INTER_AREA)
+    return cv2.resize(frame, (256, 144), interpolation=cv2.INTER_AREA)
 
 def grayScaleFrame(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
