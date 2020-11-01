@@ -83,7 +83,7 @@ class Blue:
             'references': references,
             'base64Image': base_64_image
         }
-        json_payload = json.dumps(payload, separators=(',', ':'))
+        json_payload = json.dumps(payload, separators=(',', ':'), ensure_ascii=False)
         print(json_payload)
         self.send_data(json_payload)
 
@@ -107,5 +107,5 @@ class Blue:
 
     def send_next_frame_base_64(self, base_64_image):
         if base_64_image is not None:
-            print(base_64_image)
+            print(type(base_64_image))
             self.send_payload(base_64_image=base_64_image)
