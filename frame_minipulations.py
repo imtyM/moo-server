@@ -62,7 +62,7 @@ def getROI(frame, lowX=50, highX=1000, lowY=50, highY=460):
     # return ''
 
 def scale_to_360(frame):
-    return cv2.resize(frame, (480, 360), interpolation=cv2.INTER_AREA)
+    return cv2.resize(frame, (128, 72), interpolation=cv2.INTER_AREA)
 
 def grayScaleFrame(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
