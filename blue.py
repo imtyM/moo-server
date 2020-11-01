@@ -66,6 +66,7 @@ class Blue:
             recieved_mode = payload.get('mode', mode)
             references_string = payload.get('references')
             tare = payload.get('tare', False)
+            should_send_next_frame = payload.get('should_send_next_frame', False)
             new_references = self.parse_references(references_string, references)
 
             print(new_references)
@@ -105,3 +106,6 @@ class Blue:
             return new_references
         return references
 
+    def send_next_frame_base_64(self, base_64_image):
+        if base_64_image is not None:
+            self.send_data(json_payload)

@@ -15,12 +15,16 @@ while True:
         references = weight_detector.get_sensor_references()
         print('Mode: ', mode)
 
-        data_recieved, mode, references, tare = bluetooth.processInputFromBluetooth(mode, references)
+        data_recieved, mode, references, tare, should_send_next_frame = bluetooth.processInputFromBluetooth(mode, references)
         if data_recieved:
             print('Recieved data: ', data_recieved)
             # bluetooth.processOutputToBluetooth(True, data_recieved, 1)
             weight_detector.set_sensor_references(references)
             weight_detector.tare(tare)
+
+            # Send next frame if requested by client
+            base_64_image = image_processor.get_next_frame_base_64(should_send_next_frame)
+            bluetooth.send_next_frame(should_send_next_frame)
             continue
 
         if mode == Modes.DETECT:

@@ -1,7 +1,8 @@
 import cv2
+import base64
 
 from contour_matching import contourMatching, determine_best_contours_for_frame
-from frame_minipulations import BgrToHsv, loadImagesFromFolder, getROI
+from frame_minipulations import BgrToHsv, loadImagesFromFolder, getROI, scale_to_360
 from matcher import matchFrameToTemplates
 
 class ImageProcessor():
@@ -59,6 +60,14 @@ class ImageProcessor():
         templates_with_ids = loadImagesFromFolder('./pictures')
         return matchFrameToTemplates(frame, templates_with_ids, contourMatching)
 
+    def get_next_frame_base_64(self, should_send_next_frame):
+        if should_send_next_frame:
+            ret, frame = self.cap.read()
+            roi_frame = getROI(frame)
+            scaled_frame = scale_to_360()
+            _, buffer = cv2.imencode('.jpg', scaled_frame)
+            base64_image = base64.b64encode(buffer)
 
-
+            return base64_image
+        return None
 
