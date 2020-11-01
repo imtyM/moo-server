@@ -31,16 +31,16 @@ while True:
     if mode == Modes.DETECT:
         valid, cow_data = weight_detector.detectCowLameness()
         cow_id = image_processor.detectCow(valid)
-        bluetooth.send_payload(
-            valid=valid,
-            cow_data=cow_data,
-            cow_id=cow_id,
-            mode=mode,
-            references=references
-        )
+        # bluetooth.send_payload(
+            # valid=valid,
+            # cow_data=cow_data,
+            # cow_id=cow_id,
+            # mode=mode,
+            # references=references
+        # )
 
     if mode == Modes.IDLE:
-        bluetooth.send_payload(mode=mode, references=references)
+        # bluetooth.send_payload(mode=mode, references=references)
 
     # except:
        # bluetooth.setupBluetoothProcessing()
