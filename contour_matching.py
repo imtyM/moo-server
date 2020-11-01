@@ -18,16 +18,16 @@ def contourMatching(frame, template):
         cv2.destroyAllWindows()
         sys.exit(1)
 
-    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=True)
-    template_best_contours = determine_best_contours_for_frame(template, 'template', template=True, show_frame=True)
+    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=False)
+    template_best_contours = determine_best_contours_for_frame(template, 'template', template=False, show_frame=False)
 
     hits, similarity, matching_frame_contour, matching_template_contour = match_best_contours(frame_best_contours, template_best_contours)
-    if matching_frame_contour is not None:
-        hull = cv2.convexHull(matching_frame_contour)
-        matching_frame_with_contour = draw_frame_with_contours(frame, [ matching_frame_contour ])
-        matching_template_with_contour = draw_frame_with_contours(template, [ matching_template_contour ])
-        cv2.imshow('matching frame contour', matching_frame_with_contour)
-        cv2.imshow('matching template contour', matching_template_with_contour)
+    # if matching_frame_contour is not None:
+        # hull = cv2.convexHull(matching_frame_contour)
+        # matching_frame_with_contour = draw_frame_with_contours(frame, [ matching_frame_contour ])
+        # matching_template_with_contour = draw_frame_with_contours(template, [ matching_template_contour ])
+        # cv2.imshow('matching frame contour', matching_frame_with_contour)
+        # cv2.imshow('matching template contour', matching_template_with_contour)
     return hits, similarity
 
 def determine_best_contours_for_frame(frame, name, template=False, show_frame=False):
