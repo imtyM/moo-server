@@ -28,43 +28,12 @@ def loadImagesFromFolder(folder):
 # @input - RGB frame
 # @return - cropped RGB image only with ROI.
 def getROI(frame, lowX=50, highX=1000, lowY=50, highY=460):
-    print(lowX)
-    print(highX)
-    # dim = (640, 480)
     # scaled = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
-    # lowX = 123
-    # highX = 919
-    # lowY = 185
-    # highY = 570
     cropped = frame[lowY:highY, lowX: highX]
     return cropped
-    # print('shape', frame.shape)
-    # # converting from BGR to HSV color space
-    # hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-
-    # # Range for lower red
-    # lower_red = np.array([0,120,70])
-    # upper_red = np.array([10,200,200])
-    # mask1 = cv2.inRange(hsv, lower_red, upper_red)
-
-    # # Range for upper range
-    # lower_red = np.array([170,120,70])
-    # upper_red = np.array([180,200,200])
-    # mask2 = cv2.inRange(hsv,lower_red,upper_red)
-    # cv2.imshow('mask1', mask1)
-    # cv2.imshow('mask2', mask2)
-
-
-    # # Generating the final mask to detect red color
-    # mask1 = mask1 + mask2
-
-    # cv2.imshow('mask', mask1)
-
-
-    # return ''
 
 def scale_to_360(frame):
-    return cv2.resize(frame, (128, 72), interpolation=cv2.INTER_AREA)
+    return cv2.resize(frame, (108, 72), interpolation=cv2.INTER_AREA)
 
 def grayScaleFrame(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
