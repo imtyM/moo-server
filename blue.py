@@ -111,7 +111,7 @@ class Blue:
     def parse_roi_bounds(self, roi_bounds_string):
         if not roi_bounds_string:
             return None
-        roi_values = references_string.split('\n')
+        roi_values = roi_bounds_string.split('\n')
         new_references = {
             'lowX': int(roi_values[0]),
             'highX': int(roi_values[1]),
