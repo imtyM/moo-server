@@ -51,7 +51,7 @@ class Blue:
         return None
 
     def send_data(self, data=None):
-        self.client_sock.send_all(data + '\r\n')
+        self.client_sock.send(data + '\r\n')
 
     # @param mode [Mode]: Current mode of the system
     # @returns mode, data_recieved
@@ -83,7 +83,7 @@ class Blue:
             'references': references,
             'base64Image': base_64_image
         }
-        json_payload = json.dumps(payload, separators=(',', ':'))
+        json_payload = json.dumps(payload, separators=(',', ':'), ensure_ascii=False)
         print(json_payload)
         self.send_data(json_payload)
 
