@@ -107,4 +107,5 @@ class Blue:
 
     def send_next_frame_base_64(self, base_64_image):
         if base_64_image is not None:
+            print(base_64_image)
             self.send_payload(base_64_image=base_64_image)

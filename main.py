@@ -24,7 +24,7 @@ while True:
 
         # Send next frame if requested by client
         base_64_image = image_processor.get_next_frame_base_64(should_send_next_frame)
-        bluetooth.send_next_frame_base_64(should_send_next_frame)
+        bluetooth.send_next_frame_base_64(base_64_image)
         continue
 
     if mode == Modes.DETECT:
