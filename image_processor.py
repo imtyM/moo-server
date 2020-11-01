@@ -76,9 +76,8 @@ class ImageProcessor():
         return None
 
     def set_roi_bounds(self, roi_bounds):
-        print(roi_bounds)
         if roi_bounds is not None:
-            self.lowX = roi_bounds.lowX
-            self.highX = roi_bounds.highX
-            self.lowY = roi_bounds.lowY
-            self.highY = roi_bounds.highY
+            self.lowX = roi_bounds.get('lowX', self.lowX)
+            self.highX = roi_bounds.get('highX', self.highX)
+            self.lowY = roi_bounds.get('lowY', self.lowY)
+            self.highY = roi_bounds.get('highY', self.highY)
