@@ -63,8 +63,8 @@ class ImageProcessor():
     def get_next_frame_base_64(self, should_send_next_frame):
         if should_send_next_frame:
             ret, frame = self.cap.read()
-            roi_frame = getROI(frame)
-            scaled_frame = scale_to_360(roi_frame)
+            # roi_frame = getROI(frame)
+            scaled_frame = scale_to_360(frame)
             _, buffer = cv2.imencode('.jpg', scaled_frame)
             base64_image = base64.b64encode(buffer).decode()
 
