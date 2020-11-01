@@ -66,7 +66,7 @@ class ImageProcessor():
             roi_frame = getROI(frame)
             scaled_frame = scale_to_360(roi_frame)
             _, buffer = cv2.imencode('.jpg', scaled_frame)
-            base64_image = base64.b64encode(buffer)
+            base64_image = base64.b64encode(buffer).decode()
 
             return base64_image
         return None
