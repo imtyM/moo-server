@@ -12,6 +12,7 @@ weight_detector = WeightDetector(debug=False)
 
 while True:
     # try:
+    time.sleep(10)
     references = weight_detector.get_sensor_references()
     print('Mode: ', mode)
 
@@ -41,7 +42,6 @@ while True:
     if mode == Modes.IDLE:
         bluetooth.send_payload(mode=mode, references=references)
 
-    time.sleep(5)
     # except:
        # bluetooth.setupBluetoothProcessing()
 
