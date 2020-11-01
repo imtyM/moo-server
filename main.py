@@ -12,7 +12,7 @@ weight_detector = WeightDetector(debug=False)
 
 while True:
     # try:
-    time.sleep(10)
+    time.sleep(1)
     references = weight_detector.get_sensor_references()
     print('Mode: ', mode)
 
