@@ -92,7 +92,8 @@ class WeightDetector():
                 'frontLeft': weights[FRONT_LEFT],
                 'frontRight': weights[FRONT_RIGHT],
                 'hindRight': weights[HIND_RIGHT],
-                'hindLeft': weights[HIND_LEFT]
+                'hindLeft': weights[HIND_LEFT],
+                'weight': sum(weights)
         }
         return True, cow_data
 
