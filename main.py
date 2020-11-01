@@ -41,7 +41,7 @@ while True:
     if mode == Modes.IDLE:
         bluetooth.send_payload(mode=mode, references=references)
 
-    time.sleep(0.5)
+    time.sleep(5)
     # except:
        # bluetooth.setupBluetoothProcessing()
 
