@@ -71,6 +71,7 @@ class Blue:
             new_references = self.parse_references(references_string, references)
 
             roi_bounds = self.parse_roi_bounds(payload.get('rois', None))
+            print(roi_bounds)
 
             return data_recieved, Modes(recieved_mode), new_references, tare, should_send_next_frame, roi_bounds
         return None, mode, references, False, False, None
