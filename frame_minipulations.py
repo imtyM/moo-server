@@ -29,15 +29,11 @@ def loadImagesFromFolder(folder):
 # @return - cropped RGB image only with ROI.
 def getROI(frame, lowX=0, highX=1920, lowY=0, highY=1080):
     # scaled = cv2.resize(frame, dim, interpolation=cv2.INTER_AREA)
-    print(lowX)
-    print(lowY)
-    print(highX)
-    print(highY)
     cropped = frame[lowY:highY, lowX: highX]
     return cropped
 
 def scale_to_360(frame):
-    return cv2.resize(frame, (256, 144), interpolation=cv2.INTER_AREA)
+    return cv2.resize(frame, (192, 108), interpolation=cv2.INTER_AREA)
 
 def grayScaleFrame(frame):
     return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

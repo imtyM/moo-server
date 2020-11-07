@@ -18,8 +18,8 @@ def contourMatching(frame, template):
         cv2.destroyAllWindows()
         sys.exit(1)
 
-    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=False)
-    template_best_contours = determine_best_contours_for_frame(template, 'template', template=False, show_frame=False)
+    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=True)
+    template_best_contours = determine_best_contours_for_frame(template, 'template', template=False, show_frame=True)
 
     hits, similarity, matching_frame_contour, matching_template_contour = match_best_contours(frame_best_contours, template_best_contours)
     # if matching_frame_contour is not None:
