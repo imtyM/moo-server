@@ -18,6 +18,7 @@ class ImageProcessor():
         print('=========================\n')
         print('Setting up image processor')
         if debug:
+            print('DDDDDDDEEEEEEEEBUUUUUGGGG')
             videoFolder = './videos/'
             fileName = 'tarp_2.mp4'
             __input = videoFolder + fileName
