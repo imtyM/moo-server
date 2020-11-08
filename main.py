@@ -14,7 +14,7 @@ start = None
 end = None
 
 while True:
-    try:
+    # try:
         start = timer()
         references = weight_detector.get_sensor_references()
 
@@ -50,8 +50,8 @@ while True:
         end = timer()
         print('ITERATION TIME: ', end - start)
 
-    except:
-       bluetooth.setupBluetoothProcessing()
+    # except:
+       # bluetooth.setupBluetoothProcessing()
 
     # if mode == Modes.REGISTER:
         # # TODO: Lameness detector doesnt exist
