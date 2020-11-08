@@ -61,9 +61,7 @@ class Blue:
     def processInputFromBluetooth(self, mode, references):
         data_recieved = self.recieve_data()
         if data_recieved:
-            print(data_recieved)
             payload = json.loads(data_recieved)
-            print(payload)
             recieved_mode = payload.get('mode', mode)
             references_string = payload.get('references')
             tare = payload.get('tare', False)
@@ -87,7 +85,7 @@ class Blue:
             'base64Image': base_64_image
         }
         json_payload = json.dumps(payload, separators=(',', ':'), ensure_ascii=False)
-        print(json_payload)
+        # print(json_payload)
         self.send_data(json_payload)
 
     def cleanup(self):
@@ -124,5 +122,5 @@ class Blue:
 
     def send_next_frame_base_64(self, base_64_image):
         if base_64_image is not None:
-            print(type(base_64_image))
+            # print(type(base_64_image))
             self.send_payload(base_64_image=base_64_image)

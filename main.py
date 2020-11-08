@@ -3,18 +3,21 @@ from blue import Blue
 from weight_detector import WeightDetector
 from modes import Modes
 import time
+import timeit
 
 mode = Modes.DETECT
 
 image_processor = ImageProcessor(debug=True)
 bluetooth = Blue()
 weight_detector = WeightDetector(debug=False)
+start = None
+end = None
 
 while True:
     try:
-        time.sleep(1)
+        start = timeit.timeit()
+        time.sleep(0.5)
         references = weight_detector.get_sensor_references()
-        print('Mode: ', mode)
 
         data_recieved, mode, references, tare, should_send_next_frame, roi_bounds = bluetooth.processInputFromBluetooth(mode, references)
         if data_recieved:
@@ -29,6 +32,7 @@ while True:
 
             # set new roi_bounds
             image_processor.set_roi_bounds(roi_bounds)
+            start = None
             continue
 
         if mode == Modes.DETECT:
@@ -44,6 +48,8 @@ while True:
 
         if mode == Modes.IDLE:
             bluetooth.send_payload(mode=mode, references=references)
+        end = timeit.timeit()
+        print('ITERATION TIME: ', end - start)
 
     except:
        bluetooth.setupBluetoothProcessing()
