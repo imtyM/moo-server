@@ -22,7 +22,7 @@ class ImageProcessor():
             fileName = '1.mp4'
             __input = videoFolder + fileName
             self.cap = cv2.VideoCapture(__input)
-            self.cap.set(1, 160)
+            self.cap.set(1, 180)
         else:
             self.cap = cv2.VideoCapture(0)
 
