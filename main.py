@@ -3,7 +3,7 @@ from blue import Blue
 from weight_detector import WeightDetector
 from modes import Modes
 import time
-import timeit
+from timeit import default_timer as timer
 
 mode = Modes.DETECT
 
@@ -15,8 +15,7 @@ end = None
 
 while True:
     try:
-        time.sleep(0.2)
-        start = timeit.timeit()
+        start = timer()
         references = weight_detector.get_sensor_references()
 
         data_recieved, mode, references, tare, should_send_next_frame, roi_bounds = bluetooth.processInputFromBluetooth(mode, references)
@@ -48,7 +47,7 @@ while True:
 
         if mode == Modes.IDLE:
             bluetooth.send_payload(mode=mode, references=references)
-        end = timeit.timeit()
+        end = timer()
         print('ITERATION TIME: ', end - start)
 
     except:
