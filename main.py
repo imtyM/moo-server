@@ -15,8 +15,8 @@ end = None
 
 while True:
     try:
+        time.sleep(0.2)
         start = timeit.timeit()
-        time.sleep(0.5)
         references = weight_detector.get_sensor_references()
 
         data_recieved, mode, references, tare, should_send_next_frame, roi_bounds = bluetooth.processInputFromBluetooth(mode, references)
