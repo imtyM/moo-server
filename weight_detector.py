@@ -85,10 +85,10 @@ class WeightDetector():
 
     def detectCowLameness(self):
         weights = self.take_weights() # [120, 120, 120, 123]
-        lamness_class = self.lamness_classification(weights)
+        lameness_class = self.lamness_classification(weights)
         # self.print_weights(weights)
         cow_data = {
-                'lamness_class': lamness_class,
+                'lameness_class': lameness_class,
                 'frontLeft': weights[FRONT_LEFT],
                 'frontRight': weights[FRONT_RIGHT],
                 'hindRight': weights[HIND_RIGHT],
