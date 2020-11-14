@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 from numpy.linalg import norm
+from scipy.interpolate import splprep, splev
 
 from frame_minipulations import BgrToHsv
 
-AREA_THRESHOLD = 10
-SHAPE_SIMILARITY_THRESHOLD = 0.13
+AREA_THRESHOLD = 20
+SHAPE_SIMILARITY_THRESHOLD = 0.25
 
 def contourMatching(frame, template):
     # frame_brightness = np.average(norm(frame, axis=2)) / np.sqrt(3)
@@ -13,12 +14,12 @@ def contourMatching(frame, template):
     # print('Frame brightness ', frame_brightness)
     # print('Template brightness ', template_brightness)
 
-    if cv2.waitKey(0) & 0xFF == ord('q'):
+    if cv2.waitKey(10) & 0xFF == ord('q'):
         cap.release()
         cv2.destroyAllWindows()
         sys.exit(1)
 
-    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=False)
+    frame_best_contours = determine_best_contours_for_frame(frame, 'frame', show_frame=True)
     template_best_contours = determine_best_contours_for_frame(template, 'template', template=False, show_frame=False)
 
     hits, similarity, matching_frame_contour, matching_template_contour = match_best_contours(frame_best_contours, template_best_contours)
@@ -41,14 +42,14 @@ def determine_best_contours_for_frame(frame, name, template=False, show_frame=Fa
         cv2.imshow('morpho transform', morphed_frame)
     frame_contours, _ = cv2.findContours(morphed_frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     filtered_contours = filter_small_contours(frame_contours, template)
-    # smoothened_contours = smoothen_contours(filtered_contours)
+    smoothened_contours = smoothen_contours(filtered_contours)
     if show_frame:
-        frame_with_contours = draw_frame_with_contours(morphed_frame, filtered_contours)
+        frame_with_contours = draw_frame_with_contours(morphed_frame, smoothened_contours)
 
         title = f'{name} contours'
         cv2.imshow(title, frame_with_contours)
 
-    return filtered_contours
+    return smoothened_contours
 
 def apply_morphological_transform(frame):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
@@ -110,21 +111,21 @@ def areas_match(frame_contour, template_contour):
     return False
 
 # # NOTE: This is really really expensive, need an alt
-# def smoothen_contours(contours):
-    # smoothened = []
-    # for contour in contours:
-        # x,y = contour.T
-        # # Convert from numpy arrays to normal arrays
-        # x = x.tolist()[0]
-        # y = y.tolist()[0]
-        # # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splprep.html
-        # tck, u = splprep([x,y], u=None, s=1.0, per=1)
-        # # https://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.linspace.html
-        # u_new = np.linspace(u.min(), u.max(), 25)
-        # # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splev.html
-        # x_new, y_new = splev(u_new, tck, der=0)
-        # # Convert it back to numpy format for opencv to be able to display it
-        # res_array = [[[int(i[0]), int(i[1])]] for i in zip(x_new,y_new)]
-        # smoothened.append(np.asarray(res_array, dtype=np.int32))
-    # return smoothened
+def smoothen_contours(contours):
+    smoothened = []
+    for contour in contours:
+        x,y = contour.T
+        # Convert from numpy arrays to normal arrays
+        x = x.tolist()[0]
+        y = y.tolist()[0]
+        # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splprep.html
+        tck, u = splprep([x,y], u=None, s=1.0, per=1)
+        # https://docs.scipy.org/doc/numpy-1.10.1/reference/generated/numpy.linspace.html
+        u_new = np.linspace(u.min(), u.max(), 25)
+        # https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.interpolate.splev.html
+        x_new, y_new = splev(u_new, tck, der=0)
+        # Convert it back to numpy format for opencv to be able to display it
+        res_array = [[[int(i[0]), int(i[1])]] for i in zip(x_new,y_new)]
+        smoothened.append(np.asarray(res_array, dtype=np.int32))
+    return smoothened
 

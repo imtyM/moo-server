@@ -7,7 +7,7 @@ from timeit import default_timer as timer
 
 mode = Modes.DETECT
 
-image_processor = ImageProcessor(debug=False)
+image_processor = ImageProcessor(debug=True)
 bluetooth = Blue()
 weight_detector = WeightDetector(debug=False)
 start = None
