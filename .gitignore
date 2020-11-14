@@ -8,6 +8,14 @@
 /pictures
 /videos
 /pictures_old
+videos
+videos_old
+videos/
+videos_old/
+/pictures_very_old
+pictures_very_old
+pictures_very_old/
+*.mp4
 
 ### Code ###
 .vscode/*
