@@ -5,6 +5,9 @@ from contour_matching import contourMatching, determine_best_contours_for_frame
 from frame_minipulations import BgrToHsv, loadImagesFromFolder, getROI, scale_to_360
 from matcher import matchFrameToTemplates
 
+import warnings
+warnings.filterwarnings('ignore')
+
 class ImageProcessor():
     def __init__(self, debug=False):
         self.cap = None
