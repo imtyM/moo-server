@@ -112,15 +112,15 @@ class WeightDetector():
         return min(weights)/max(weights)
 
     def classify_leg_weight_ratio(self, leg_weight_ratio):
-        if leg_weight_ratio <= 1 and leg_weight_ratio > 0.85:
+        if leg_weight_ratio <= 1 and leg_weight_ratio > 0.80:
             return 'healthy'
-        if leg_weight_ratio <= 0.85 and leg_weight_ratio > 0.80:
-            return 'Mildly Lame'
         if leg_weight_ratio <= 0.80 and leg_weight_ratio > 0.75:
-            return 'Moderately Lame'
+            return 'Mildly Lame'
         if leg_weight_ratio <= 0.75 and leg_weight_ratio > 0.70:
+            return 'Moderately Lame'
+        if leg_weight_ratio <= 0.70 and leg_weight_ratio > 0.65:
             return 'Lame'
-        if leg_weight_ratio <= 0.70 and leg_weight_ratio >= 0:
+        if leg_weight_ratio <= 0.65 and leg_weight_ratio >= 0:
             return 'Severely Lame'
         return f"Something is wrong: {leg_weight_ratio}"
 
