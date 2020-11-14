@@ -122,7 +122,7 @@ class WeightDetector():
             return 'Lame'
         if leg_weight_ratio <= 0.70 and leg_weight_ratio >= 0:
             return 'Severely Lame'
-        return 'Something is wrong'
+        return f"Something is wrong: {leg_weight_ratio}"
 
     def tare(self, tare):
         if tare:
