@@ -6,7 +6,7 @@ from scipy.interpolate import splprep, splev
 from frame_minipulations import BgrToHsv
 
 AREA_THRESHOLD = 20
-SHAPE_SIMILARITY_THRESHOLD = 0.25
+SHAPE_SIMILARITY_THRESHOLD = 0.20
 
 def contourMatching(frame, template):
     # frame_brightness = np.average(norm(frame, axis=2)) / np.sqrt(3)
@@ -34,7 +34,7 @@ def contourMatching(frame, template):
 def determine_best_contours_for_frame(frame, name, template=False, show_frame=False):
     if show_frame and template:
         cv2.imshow('Normal template', frame)
-    frame_HSV = BgrToHsv(frame, 0, 0, 180, 255, 255, 255)
+    frame_HSV = BgrToHsv(frame, 0, 0, 200, 255, 255, 255)
     if show_frame and template:
         cv2.imshow('HSV transform', frame_HSV)
     morphed_frame = apply_morphological_transform(frame_HSV)
@@ -42,14 +42,14 @@ def determine_best_contours_for_frame(frame, name, template=False, show_frame=Fa
         cv2.imshow('morpho transform', morphed_frame)
     frame_contours, _ = cv2.findContours(morphed_frame, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     filtered_contours = filter_small_contours(frame_contours, template)
-    smoothened_contours = smoothen_contours(filtered_contours)
+    # smoothened_contours = smoothen_contours(filtered_contours)
     if show_frame:
-        frame_with_contours = draw_frame_with_contours(morphed_frame, smoothened_contours)
+        frame_with_contours = draw_frame_with_contours(morphed_frame, filtered_contours)
 
         title = f'{name} contours'
         cv2.imshow(title, frame_with_contours)
 
-    return smoothened_contours
+    return filtered_contours
 
 def apply_morphological_transform(frame):
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(5,5))
