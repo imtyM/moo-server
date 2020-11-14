@@ -98,8 +98,8 @@ class WeightDetector():
         return True, cow_data
 
     def lamness_classification(self, weights):
-        front_ratio = self.calculate_ratio([180, 144])
-        back_ratio = self.calculate_ratio([150, 150])
+        front_ratio = self.calculate_ratio(weights[0:2])
+        back_ratio = self.calculate_ratio(weights[2:5])
 
         leg_weight_ratio = min(front_ratio, back_ratio)
 
@@ -112,15 +112,15 @@ class WeightDetector():
         return min(weights)/max(weights)
 
     def classify_leg_weight_ratio(self, leg_weight_ratio):
-        if leg_weight_ratio <= 1 and leg_weight_ratio > 0.95:
+        if leg_weight_ratio <= 1 and leg_weight_ratio > 0.85:
             return 'healthy'
-        if leg_weight_ratio <= 0.95 and leg_weight_ratio > 0.9:
+        if leg_weight_ratio <= 0.85 and leg_weight_ratio > 0.80:
             return 'Mildly Lame'
-        if leg_weight_ratio <= 0.9 and leg_weight_ratio > 0.85:
+        if leg_weight_ratio <= 0.80 and leg_weight_ratio > 0.75:
             return 'Moderately Lame'
-        if leg_weight_ratio <= 0.85 and leg_weight_ratio > 0.75:
+        if leg_weight_ratio <= 0.75 and leg_weight_ratio > 0.70:
             return 'Lame'
-        if leg_weight_ratio <= 0.75 and leg_weight_ratio >= 0:
+        if leg_weight_ratio <= 0.70 and leg_weight_ratio >= 0:
             return 'Severely Lame'
         return 'Something is wrong'
 
